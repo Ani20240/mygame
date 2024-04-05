@@ -1,0 +1,40 @@
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox
+
+class FavoriteSubjectApp(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+    def initUI(self):
+        layout = QVBoxLayout()
+
+        question_label = QLabel("What is Anthony's favorite subject?")
+        self.answer_input = QLineEdit()
+
+        submit_button = QPushButton("Submit")
+        submit_button.clicked.connect(self.checkAnswer)
+
+        layout.addWidget(question_label)
+        layout.addWidget(self.answer_input)
+        layout.addWidget(submit_button)
+
+        self.setLayout(layout)
+
+        self.setWindowTitle('Favorite Subject Quiz')
+        self.setGeometry(300, 300, 300, 150)
+
+    def checkAnswer(self):
+        user_answer = self.answer_input.text().lower()
+
+        if user_answer == 'math':
+            QMessageBox.information(self, 'Correct', 'That\'s right! Anthony\'s favorite subject is math.')
+        else:
+            QMessageBox.information(self, 'Incorrect', 'Sorry, that\'s not correct. Anthony\'s favorite subject is math.')
+
+if _name_ == '_main_':
+    app = QApplication(sys.argv)
+    favorite_subject_app = FavoriteSubjectApp()
+    favorite_subject_app.show()
+    sys.exit(app.exec_())
